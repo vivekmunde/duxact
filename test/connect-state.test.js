@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import createStore from '../src/create-store';
 import Provider from '../src/provider';
 import connectState from '../src/connect-state';
@@ -7,9 +7,10 @@ import connectState from '../src/connect-state';
 describe('connectState()', () => {
     test('Should throw error if store is not defined in the context', () => {
         expect.hasAssertions();
+
         expect(() => {
             const Component = connectState(() => { })(<div />);
-            mount(<Component />);
+            shallow(<Component />);
         }).toThrow(new Error('Store is not available in context. Use Provider to define the store in context.'));
     });
 

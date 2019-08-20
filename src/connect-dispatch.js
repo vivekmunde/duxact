@@ -1,11 +1,11 @@
 import React from 'react';
 import isUndefinedOrNull from './is-undefined-or-null';
 import isFunction from './is-function';
-import storeContextType from './store-context-type';
+import StoreContext from './store-context';
 
 const connect = mapDispatchToProps => Component => {
     class ConnectDispatch extends React.Component {
-        static contextTypes = storeContextType;
+        static contextType = StoreContext;
 
         constructor(props, context) {
             super(props, context);
