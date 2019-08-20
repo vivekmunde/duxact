@@ -1,0 +1,32 @@
+{
+  "name": "duxact",
+  "version": "1.0.0",
+  "description": "React + Redux with Actions as the Reducers",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Vivek Munde",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivekmunde/duxact.git"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-15": "^1.4.0",
+    "jest": "^24.8.0",
+    "react-test-renderer": "^15.6.2"
+  }
+}
