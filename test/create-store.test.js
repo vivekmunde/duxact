@@ -43,26 +43,6 @@ describe('createStore()', () => {
             }).toThrow(new Error('Action must be a function.'));
         });
 
-        test('Should throw error if state is accessed during dispatch cycle', () => {
-            expect.hasAssertions();
-            expect(() => {
-                const { getState, dispatch } = createStore({});
-                dispatch(() => {
-                    getState();
-                });
-            }).toThrow(new Error('Cannot call getState() as the store is dispatching an action currently and the state is getting updated.'));
-        });
-
-        test('Should throw error if dispatch is called during already running dispatch cycle', () => {
-            expect.hasAssertions();
-            expect(() => {
-                const { dispatch } = createStore({});
-                dispatch(() => {
-                    dispatch(() => { });
-                });
-            }).toThrow(new Error('Cannot dispatch as the store is already dispatching an action.'));
-        });
-
         test('Should pass the current state to dispatcher', () => {
             expect.hasAssertions();
 
@@ -97,27 +77,6 @@ describe('createStore()', () => {
             const { subscribe } = createStore({});
             expect(() => subscribe()).toThrow(new Error('Listener must be a function.'));
             expect(() => subscribe({})).toThrow(new Error('Listener must be a function.'));
-        });
-
-        test('Should throw error if new subscription occurs during dispatch cycle', () => {
-            expect.hasAssertions();
-            expect(() => {
-                const { subscribe, dispatch } = createStore({});
-                dispatch(() => {
-                    subscribe(() => { });
-                });
-            }).toThrow(new Error('Cannot subscribe as the store is dispatching an action.'));
-        });
-
-        test('Should throw error if unsubscription occurs during dispatch cycle', () => {
-            expect.hasAssertions();
-            expect(() => {
-                const { subscribe, dispatch } = createStore({});
-                const unsubscribe = subscribe(() => { });
-                dispatch(() => {
-                    unsubscribe();
-                });
-            }).toThrow(new Error('Cannot unsubscribe as the store is dispatching an action.'));
         });
 
         test('Should not unsubscribe if the subscription is already unsubscribed', () => {
