@@ -2,9 +2,7 @@
 
 Application state management for [React](https://reactjs.org/) inspired by the [Redux](https://redux.js.org) & [React-Redux](https://react-redux.js.org).
 
-> I am a big fan of [React-Redux](https://react-redux.js.org), it has served thousands of application across the globe and has worked wonders in my projects. So there is no intention to present `duxact` as a complete replacement to [React-Redux](https://react-redux.js.org), although it can be. It all started as a personal experiment on thinking about, how can the boiler plate be reduced or almost removed?  Can the switch cases in the reduers be removed? Can reducer definitions be made more simple or are they even needed? If the actions are responsible for state changes then why not the actions be responsible to do the work which reducers do? etc.
-
-> `duxact` does not support any middleware currently.
+> [React-Redux](https://react-redux.js.org) is one of the great ways of managing application state, it has served thousands of application across the globe and has worked wonders in my projects as well. It all started as a personal experiment on thinking about, how can the boiler plate for be reduced or almost removed?  Can the switch cases in the reduers be removed? Can reducer definitions be made more simple or are they even needed? If the actions are responsible for state changes then why not the actions be responsible to do the work which reducers do? etc. I started experimenting on the implementation of these by looking at the [Redux](https://redux.js.org) & [React-Redux](https://react-redux.js.org) code. Finally I could come up with a solution, [duxact](https://github.com/vivekmunde/duxact).
 
 `duxact` is built on its main conecpt **Action is the Reducer**. And with that, there is no need to define the Reducers separately and then combine them into one, which completely removes the need of Switch Cases in the Reducers.
 
@@ -188,11 +186,12 @@ export default connect(null, mapDispatchToProps)(ToggleButton);
 ```
 
 ## async calls
-No middlewares needed to handle the async actions.
+After receiving the response from the async API, update the state using the reducer defined inside the action. No middlewares needed to handle the async actions.
+In the example below, the after getting the data from API `/api/user`, `dispatch` is called with the `reducer` which updated the state. So no middleware is required here.
 ```
 const mapDispatchToProps = dispatch => ({
   getUserDetails: (userId) => {
-    fetch('/api',args)
+    fetch('/api/user',args)
     .then((resp) => resp.json())
     .then((data) => {
       const reducer = (currentState) => ({
