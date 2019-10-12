@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Provider from '../src/provider';
-import storeContextType from '../src/store-context-type';
+import StoreContext from '../src/store-context';
 
 describe('<Provider />', () => {
     test('Should throw exception if the store is not defined', () => {
@@ -9,8 +9,8 @@ describe('<Provider />', () => {
 
         const expectedError = new Error('Store is undefined.');
 
-        expect(() => mount(<Provider />)).toThrow(expectedError);
-        expect(() => mount(<Provider store={null} />)).toThrow(expectedError);
+        expect(() => shallow(<Provider />)).toThrow(expectedError);
+        expect(() => shallow(<Provider store={null} />)).toThrow(expectedError);
     });
 
     test('Should set store in the context', () => {
@@ -19,12 +19,12 @@ describe('<Provider />', () => {
         const store = { getState: () => ({ some: 'value' }) };
 
         class ChildComponent extends React.Component {
-            static contextTypes = storeContextType;
+            static contextType = StoreContext;
 
             render() {
                 const { store } = this.context;
                 return (
-                    <div>{store.getState().some}</div>
+                    <React.Fragment>{store.getState().some}</React.Fragment>
                 );
             }
         }
