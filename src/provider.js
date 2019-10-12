@@ -1,6 +1,6 @@
 import React from 'react';
 import isUndefinedOrNull from './is-undefined-or-null';
-import storeContextType from './store-context-type';
+import StoreContext from './store-context';
 
 class Provider extends React.Component {
     constructor(props, context) {
@@ -15,19 +15,15 @@ class Provider extends React.Component {
         this.store = store;
     }
 
-    getChildContext() {
-        return { store: this.store };
-    }
-
     render() {
         return (
-            <div>
-                {this.props.children}
-            </div>
+            <StoreContext.Provider value={{ store: this.store }}>
+                <React.Fragment>
+                    {this.props.children}
+                </React.Fragment>
+            </StoreContext.Provider>
         );
     }
 }
-
-Provider.childContextTypes = storeContextType;
 
 export default Provider;
