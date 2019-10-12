@@ -15,7 +15,7 @@ npm install --save duxact
 ## Compatibility
 | React Version | Duxact Compatibility |
 |--|--|
-| React@16 | Coming Soon! |
+| React@16 | ^2.0.0 |
 | React@15 | ^1.0.0 |
 
 ## Usage
