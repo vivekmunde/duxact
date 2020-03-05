@@ -12,11 +12,11 @@ class Provider extends React.Component {
             throw new Error('Store is undefined.');
         }
 
-        this.store = store;
+        this.duxactStore = store;
     }
 
     getChildContext() {
-        return { store: this.store };
+        return { duxactStore: this.duxactStore };
     }
 
     render() {

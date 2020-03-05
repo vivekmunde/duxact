@@ -9,9 +9,9 @@ const connect = mapDispatchToProps => Component => {
 
         constructor(props, context) {
             super(props, context);
-            const { store } = context;
+            const { duxactStore } = context;
 
-            if (isUndefinedOrNull(store)) {
+            if (isUndefinedOrNull(duxactStore)) {
                 throw new Error('Store is not available in context. Use Provider to define the store in context.');
             }
 
@@ -19,8 +19,8 @@ const connect = mapDispatchToProps => Component => {
                 throw new Error('Dispatch mapping must be a function.');
             }
 
-            this.store = store;
-            this.dispatchers = mapDispatchToProps(store.dispatch);
+            this.duxactStore = duxactStore;
+            this.dispatchers = mapDispatchToProps(duxactStore.dispatch);
         }
 
         render() {

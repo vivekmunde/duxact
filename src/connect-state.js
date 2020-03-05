@@ -9,9 +9,9 @@ const connect = mapStateToProps => Component => {
 
         constructor(props, context) {
             super(props, context);
-            const { store } = context;
+            const { duxactStore } = context;
 
-            if (isUndefinedOrNull(store)) {
+            if (isUndefinedOrNull(duxactStore)) {
                 throw new Error('Store is not available in context. Use Provider to define the store in context.');
             }
 
@@ -19,8 +19,8 @@ const connect = mapStateToProps => Component => {
                 throw new Error('State mapping must be a function.');
             }
 
-            this.store = store;
-            this.state = mapStateToProps(store.getState());
+            this.duxactStore = duxactStore;
+            this.state = mapStateToProps(duxactStore.getState());
             this.subscribeToStateChanges();
         }
 
@@ -29,7 +29,7 @@ const connect = mapStateToProps => Component => {
         }
 
         subscribeToStateChanges = () => {
-            this.unsubscribe = this.store.subscribe(this.listener);
+            this.unsubscribe = this.duxactStore.subscribe(this.listener);
         }
 
         unsubscribeFromStateChages = () => {
