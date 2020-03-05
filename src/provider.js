@@ -12,12 +12,12 @@ class Provider extends React.Component {
             throw new Error('Store is undefined.');
         }
 
-        this.store = store;
+        this.duxactStore = store;
     }
 
     render() {
         return (
-            <StoreContext.Provider value={{ store: this.store }}>
+            <StoreContext.Provider value={{ duxactStore: this.duxactStore }}>
                 <React.Fragment>
                     {this.props.children}
                 </React.Fragment>
