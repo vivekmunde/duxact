@@ -20,6 +20,13 @@
     "src",
     "index.js"
   ],
+  "keywords": [
+    "react",
+    "reactjs",
+    "redux",
+    "react state management"
+  ],
+  "homepage": "https://github.com/vivekmunde/duxact",
   "peerDependencies": {
     "prop-types": "^15.0.0",
     "react": "^15.0.0"
