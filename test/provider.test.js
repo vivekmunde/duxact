@@ -22,9 +22,9 @@ describe('<Provider />', () => {
             static contextType = StoreContext;
 
             render() {
-                const { store } = this.context;
+                const { duxactStore } = this.context;
                 return (
-                    <React.Fragment>{store.getState().some}</React.Fragment>
+                    <React.Fragment>{duxactStore.getState().some}</React.Fragment>
                 );
             }
         }
