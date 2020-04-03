@@ -6,6 +6,8 @@ Application state management for [React](https://reactjs.org/) inspired by the [
 
 `duxact` is built on its main conecpt **Action is the Reducer**. And with that, there is no need to define the Reducers separately and then combine them into one, which completely removes the need of Switch Cases in the Reducers.
 
+**Size** Minified: 56.8kB | Minified+Gzipped: 11.8kB
+
 ## Installation
 
 ```
