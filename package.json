@@ -1,6 +1,6 @@
 {
   "name": "duxact",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "React + Redux with Actions as Reducers",
   "main": "./dist/index.js",
   "scripts": {
