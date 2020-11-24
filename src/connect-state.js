@@ -1,4 +1,5 @@
 import React from 'react';
+import isEqual from 'lodash.isequal';
 import isUndefinedOrNull from './is-undefined-or-null';
 import isFunction from './is-function';
 import storeContextType from './store-context-type';
@@ -37,7 +38,11 @@ const connect = mapStateToProps => Component => {
         }
 
         listener = state => {
-            this.setState(mapStateToProps(state));
+            const currentState = this.state;
+            const newState = mapStateToProps(state);
+            if (!isEqual(currentState, newState)) {
+                this.setState(newState);
+            }
         }
 
         render() {
