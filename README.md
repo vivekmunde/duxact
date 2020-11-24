@@ -6,6 +6,8 @@ Application state management for [React](https://reactjs.org/) inspired by the [
 
 `duxact` is built on its main conecpt **Action is the Reducer**. And with that, there is no need to define the Reducers separately and then combine them into one, which completely removes the need of Switch Cases in the Reducers.
 
+**Size** Minified: 18.6kB | Minified+Gzipped: 3kB
+
 ## Installation
 
 ```
@@ -68,7 +70,7 @@ const mapStateToProps = (currentState) => ({
 });
 
 // This object return from mapStateToProps is mapped as props & supplied to the component
-// darkTheme is received as a porperty
+// darkTheme is received as a property
 const DarkThemeLabel = ({ darkTheme }) => (
   <label>
     Dark theme is {darkTheme? 'ON' : 'OFF'}
@@ -131,6 +133,31 @@ const ThemeToggler = connect(null, mapDispatchToProps)(ToggleButton);
 import { connectDispatch } from 'duxact';
 ...
 const ThemeToggler = connectDispatch(mapDispatchToProps)(ToggleButton);
+```
+
+## Deep comparison
+
+`duxact` deep compares the changed state and old state, state derived from the `mapStateToProps` selector. It updates the consumer only if new state (derived from the mapStateToProps) has changed with respect to the old state. This avoids unnecessary re-renders of the consumer components.
+
+In below example, component `UserDetails` will receive fresh props, `name` & `address`, only if `name` and/or `address` of the `loggedInUser` object gets updated in store. Because the mapStateToProps (selector) returns only the `name` & `address` fields of `loggedInUser`. So even if other data like `dateOfBirth`, `age` etc of the `loggedInUser` are changed, the consumer component `UserDetails` do not receive freshly mapped `name` & `address`, to avoid re-rendering of `UserDetails`.
+> Please note, if any parent component in the hierarchy of the `UserDetails` has re-rendered then `UserDetails` will also re-render. Its a default behavior of react components. To avoid this use [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent) or [React.memo](https://reactjs.org/docs/react-api.html#reactmemo) or [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate).
+```
+import { connect } from 'duxact';
+  
+const mapStateToProps = (currentState) => ({
+  name: currentState.loggedInUser.name,
+  address: currentState.loggedInUser.address
+});
+
+const UserDetails = ({ name, address }) => (
+  <div>
+    <label>{name}</label>
+    <label>{address}</label>
+  </div>
+);
+  
+// connect the state to component
+const UserDetailsView = connect(mapStateToProps)(UserDetails);
 ```
 
 ## Helpers

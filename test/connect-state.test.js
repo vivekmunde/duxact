@@ -63,6 +63,10 @@ describe('connectState()', () => {
             </Provider>
         );
 
+        store.dispatch(() => ({ two: 'initial' }));
+
+        expect(wrapper.text()).toEqual('initial & initial');
+
         store.dispatch(() => ({ two: 'changed' }));
 
         expect(wrapper.text()).toEqual('initial & changed');
