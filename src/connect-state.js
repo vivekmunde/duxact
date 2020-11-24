@@ -41,7 +41,7 @@ const connect = mapStateToProps => Component => {
             const currentState = this.state;
             const newState = mapStateToProps(state);
             if (!isEqual(currentState, newState)) {
-                this.setState(mapStateToProps(state));
+                this.setState(newState);
             }
         }
 
