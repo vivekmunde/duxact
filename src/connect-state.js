@@ -1,5 +1,5 @@
 import React from 'react';
-import isEqual from 'lodash.isequal';
+import isEqual from 'fast-deep-equal';
 import isUndefinedOrNull from './is-undefined-or-null';
 import isFunction from './is-function';
 import StoreContext from './store-context';
