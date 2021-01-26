@@ -5,13 +5,17 @@ import connect from './src/connect';
 import createStore from './src/create-store';
 import injectDispatch from './src/inject-dispatch';
 import Provider from './src/provider';
+import useDispatch from './src/use-dispatch';
+import useSelector from './src/use-selector';
 
 export {
-    arrayToMapStateToProps,
-    connectDispatch,
-    connectState,
-    connect,
-    createStore,
-    injectDispatch,
-    Provider
+  arrayToMapStateToProps,
+  connectDispatch,
+  connectState,
+  connect,
+  createStore,
+  injectDispatch,
+  Provider,
+  useDispatch,
+  useSelector,
 };
