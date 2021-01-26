@@ -4,38 +4,38 @@ import Provider from '../src/provider';
 import storeContextType from '../src/store-context-type';
 
 describe('<Provider />', () => {
-    test('Should throw exception if the store is not defined', () => {
-        expect.hasAssertions();
+  test('Should throw exception if the store is not defined', () => {
+    expect.hasAssertions();
 
-        const expectedError = new Error('Store is undefined.');
+    const expectedError = new Error('Store is undefined.');
 
-        expect(() => mount(<Provider />)).toThrow(expectedError);
-        expect(() => mount(<Provider store={null} />)).toThrow(expectedError);
-    });
+    expect(() => mount(<Provider />)).toThrow(expectedError);
+    expect(() => mount(<Provider store={null} />)).toThrow(expectedError);
+  });
 
-    test('Should set store in the context', () => {
-        expect.hasAssertions();
+  test('Should set store in the context', () => {
+    expect.hasAssertions();
 
-        const store = { getState: () => ({ some: 'value' }) };
+    const store = { getState: () => ({ some: 'value' }) };
 
-        class ChildComponent extends React.Component {
-            static contextTypes = storeContextType;
+    class ChildComponent extends React.Component {
+      static contextTypes = storeContextType;
 
-            render() {
-                const { duxactStore } = this.context;
-                return (
-                    <div>{duxactStore.getState().some}</div>
-                );
-            }
-        }
-
-        const App = () => (
-            <Provider store={store}>
-                <ChildComponent />
-            </Provider>
+      render() {
+        const { duxactStore } = this.context;
+        return (
+          <div>{duxactStore.getState().some}</div>
         );
+      }
+    }
 
-        const wrapper = mount(<App />);
-        expect(wrapper.find(ChildComponent).text()).toEqual('value');
-    });
+    const App = () => (
+      <Provider store={store}>
+        <ChildComponent />
+      </Provider>
+    );
+
+    const wrapper = mount(<App />);
+    expect(wrapper.find(ChildComponent).text()).toEqual('value');
+  });
 });
