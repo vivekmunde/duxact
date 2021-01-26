@@ -79,14 +79,6 @@ const DarkThemeLabel = ({ darkTheme }) => (
 const DarkThemeView = connect(mapStateToProps)(DarkThemeLabel);
 ```
 
-#### Using `connectState` instead of `connect`
-
-```
-import { connectState } from 'duxact';
-...
-const DarkThemeView = connectState(mapStateToProps)(DarkThemeLabel);
-```
-
 ### Dispatching Actions to update the State
 
 `Actions` are responsible for changing the application `state`. Actions are nothing but functions supplied to the components as props, which can be called by the Components on user actions, like enable/disable dark theme by clicking on a toggle button.
@@ -125,7 +117,64 @@ const ToggleButton = ({ toggleTheme }) => (
 const ThemeToggler = connect(null, mapDispatchToProps)(ToggleButton);
 ```
 
-#### Using `connectDispatch` instead of `connect`
+## `connect`
+
+`connect` is used to consume the state and dispatch the actions to update the state.
+
+##### Arguments
+1. `mapStateToProps`: (optional) A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
+2. `mapDispatchToProps`: (optional) A function which receives the `dispatch` function to dispatch the actions. This function should return an object of actions, actions responsible for updating the application state. These actions are nothing but functions which are passed as props to the component.
+
+
+```
+import { connect } from 'duxact';
+  
+// Map the state as props to the component
+// An object mapping the current value of darkTheme is returned
+const mapStateToProps = (currentState) => ({
+  darkTheme: currentState.darkTheme
+});
+
+// Map the actions as props to the component
+const mapDispatchToProps = dispatch => ({
+  toggleTheme: () => {
+    // Reducer receives the current state and returns the updated state
+    const reducer = (currentState) => ({
+      darkTheme: !currentState.darkTheme
+    });
+
+    // The dispatch is called with a function which acts as the reducer
+    dispatch(reducer);
+  }
+});
+
+// Button receives the state `darkTheme` and the action `toggleTheme`
+const ToggleButton = ({ darkTheme, toggleTheme }) => (
+  <button
+    onClick={() => {toggleTheme()}}
+  >
+    {darkTheme? 'Apply light theme' : 'Apply dark theme'}
+  </button>
+);
+  
+// connect the actions with store
+const ThemeToggler = connect(mapStateToProps, mapDispatchToProps)(ToggleButton);
+
+```
+
+#### `connectState`
+
+`connectState` can be used instead of `connect` when a component only needs to consume the state and does not need to dispatch any actions.
+
+```
+import { connectState } from 'duxact';
+...
+const DarkThemeView = connectState(mapStateToProps)(DarkThemeLabel);
+```
+
+#### `connectDispatch`
+
+`connectDispatch` can be used instead of `connect` when a component only needs to dispatch actions and does not need to consume the state.
 
 ```
 import { connectDispatch } from 'duxact';
@@ -210,7 +259,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(null, mapDispatchToProps)(ToggleButton);
 ```
 
-## async calls
+## Async calls
 After receiving the response from the async API, update the state using the reducer defined inside the action. No middlewares needed to handle the async actions.
 In the example below, the after getting the data from API `/api/user`, `dispatch` is called with the `reducer` which updated the state. So no middleware is required here.
 ```
