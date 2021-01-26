@@ -2,14 +2,17 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import createStore from '../src/create-store';
 import Provider from '../src/provider';
-import connectState from '../src/connect-state';
+import useSelector from '../src/use-selector';
 
-describe('connectState()', () => {
+describe('useSelector()', () => {
   test('Should throw error if store is not defined in the context', () => {
     expect.hasAssertions();
 
     expect(() => {
-      const Component = connectState(() => { })(<div />);
+      const Component = () => {
+        const state = useSelector((state) => state);
+        return (<div>{state.value}</div>);
+      };
       shallow(<Component />);
     }).toThrow(new Error('Store is not available in context. Use Provider to define the store in context.'));
   });
@@ -19,13 +22,19 @@ describe('connectState()', () => {
 
     expect(() => {
       const store = createStore({});
-      const Component = connectState()(<div />);
+      const Component = () => {
+        const state = useSelector();
+        return (<div>{state.value}</div>);
+      };
       mount(<Provider store={store}><Component /></Provider>);
     }).toThrow(new Error('State mapping must be a function.'));
 
     expect(() => {
       const store = createStore({});
-      const Component = connectState({})(<div />);
+      const Component = () => {
+        const state = useSelector();
+        return (<div>{state.value}</div>);
+      };
       mount(<Provider store={store}><Component /></Provider>);
     }).toThrow(new Error('State mapping must be a function.'));
   });
@@ -33,10 +42,10 @@ describe('connectState()', () => {
   test('Should supply initial state to component', () => {
     expect.hasAssertions();
 
-    const StateConsumer = connectState(({ value }) => ({ value }))(
-      ({ value }) => (
-        <div>{value}</div>)
-    );
+    const StateConsumer = () => {
+      const value = useSelector(({ value }) => value);
+      return (<div>{value}</div>);
+    };
 
     const wrapper = mount(
       <Provider store={createStore({ value: 'initial' })}>
@@ -52,10 +61,10 @@ describe('connectState()', () => {
 
     const store = createStore({ one: 'initial', two: 'initial' });
 
-    const StateConsumer = connectState(({ one, two }) => ({ one, two }))(
-      ({ one, two }) => (
-        <div>{one} &amp; {two}</div>)
-    );
+    const StateConsumer = () => {
+      const { one, two } = useSelector(({ one, two }) => ({ one, two }));
+      return (<div>{one} &amp; {two}</div>);
+    };
 
     const wrapper = mount(
       <Provider store={store}>
@@ -81,9 +90,10 @@ describe('connectState()', () => {
       subscribe: () => unsubscribe
     };
 
-    const ShowWhenToggleIsTrue = connectState(({ dummy }) => ({ dummy }))(
-      () => <div />
-    );
+    const ShowWhenToggleIsTrue = () => {
+      const dummy = useSelector(({ dummy }) => dummy);
+      return <div>{dummy}</div>;
+    };
 
     class Component extends React.Component {
       state = { toggle: true }
@@ -122,11 +132,11 @@ describe('connectState()', () => {
 
     const renderConsumer = jest.fn();
 
-    const StateConsumer = connectState(({ one, two }) => ({ one, two }))(
-      ({ one, two }) => {
-        renderConsumer();
-        return <div>{one} &amp; {two}</div>;
-      });
+    const StateConsumer = () => {
+      const { one, two } = useSelector(({ one, two }) => ({ one, two }));
+      renderConsumer();
+      return (<div>{one} &amp; {two}</div>);
+    };
 
     const wrapper = mount(
       <Provider store={store}>
