@@ -2,6 +2,8 @@
 
 Application state management for [React](https://reactjs.org/) inspired by the [Redux](https://redux.js.org) & [React-Redux](https://react-redux.js.org).
 
+![plot](./duxact-workflow.png)
+
 > [React-Redux](https://react-redux.js.org) is one of the great ways of managing application state, it has served thousands of application across the globe and has worked wonders in my projects as well. It all started as a personal experiment on thinking about, how can the boiler plate for be reduced or almost removed?  Can the switch cases in the reduers be removed? Can reducer definitions be made more simple or are they even needed? If the actions are responsible for state changes then why not the actions be responsible to do the work which reducers do? etc. I started experimenting on the implementation of these by looking at the [Redux](https://redux.js.org) & [React-Redux](https://react-redux.js.org) code. Finally I could come up with a solution, [duxact](https://github.com/vivekmunde/duxact).
 
 `duxact` is built on its main conecpt **Action is the Reducer**. And with that, there is no need to define the Reducers separately and then combine them into one, which completely removes the need of Switch Cases in the Reducers.
