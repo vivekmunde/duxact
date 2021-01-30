@@ -1,10 +1,10 @@
 import React from 'react';
-import isEqual from 'fast-deep-equal';
+import deepEqual from 'fast-deep-equal';
 import isUndefinedOrNull from './is-undefined-or-null';
 import isFunction from './is-function';
 import StoreContext from './store-context';
 
-const connect = mapStateToProps => Component => {
+const connect = (mapStateToProps, areEqual = deepEqual) => Component => {
   class ConnectState extends React.Component {
     static contextType = StoreContext;
 
@@ -37,10 +37,10 @@ const connect = mapStateToProps => Component => {
       this.unsubscribe();
     }
 
-    listener = state => {
-      const currentState = this.state;
-      const newState = mapStateToProps(state);
-      if (!isEqual(currentState, newState)) {
+    listener = (updatedState) => {
+      const prevState = this.state;
+      const newState = mapStateToProps(updatedState);
+      if (!areEqual(prevState, newState)) {
         this.setState(newState);
       }
     }

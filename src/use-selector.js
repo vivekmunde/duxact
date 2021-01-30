@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import isEqual from 'fast-deep-equal';
+import deepEqual from 'fast-deep-equal';
 import isUndefinedOrNull from './is-undefined-or-null';
 import isFunction from './is-function';
 import StoreContext from './store-context';
 
-const useSelector = (mapStateToProps) => {
+const useSelector = (mapStateToProps, areEqual = deepEqual) => {
   const { duxactStore } = useContext(StoreContext);
 
   if (isUndefinedOrNull(duxactStore)) {
@@ -19,9 +19,9 @@ const useSelector = (mapStateToProps) => {
 
   useEffect(() => {
     const listener = (updatedState) => {
-      const currentState = state;
+      const prevState = state;
       const newState = mapStateToProps(updatedState);
-      if (!isEqual(currentState, newState)) {
+      if (!areEqual(prevState, newState)) {
         setState(newState);
       }
     };
