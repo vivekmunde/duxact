@@ -1,4 +1,4 @@
-# Duxact: React + Redux with Actions as the Reducers
+# Duxact
 
 Application state management for [React](https://reactjs.org/) inspired by the [Redux](https://redux.js.org) & [React-Redux](https://react-redux.js.org).
 
@@ -124,9 +124,9 @@ const ToggleButton = ({ toggleTheme }) => (
 const ThemeToggler = connect(null, mapDispatchToProps)(ToggleButton);
 ```
 
-#API
+## API
 
-## `connect`
+### `connect`
 
 `connect` is used to consume the state and dispatch the actions to update the state.
 
