@@ -56,7 +56,7 @@ const APP = () => (
 
 The components can access the `state` by connecting to the `store`. This connection is done by subscribing to the `state`. To subscribe to the state and its changes, a combination of higher order component `connect` & state-to-props mapping (also called as selector) is used. Let's name this mapping function as `mapStateToProps`. The function `mapStateToProps` receives the complete application `state` object and should return **only the required state** (which the consuming/subscribing component is expected to receive) from the complete application state object. So the function `mapStateToProps` is nothing but a selector of state which selects only the needed data from state and passes it as props to the component. `mapStateToProps` is called every time there is a change in the application `state`. The function `mapStateToProps` receives the latest state. 
 
-`duxact` uses **deep comparision** to detect changes in the selected state and it triggers rerendering only if the selected state has changed. This mechanism is explained in detail in the later part of documentation titled as `Deep comparision`.
+`duxact` uses [**deep comparision**](https://github.com/vivekmunde/duxact#deep-comparison) to detect changes in the selected state and it triggers rerendering only if the selected state has changed. This mechanism is explained in detail in the later part of documentation titled as `Deep comparision`.
 
 The higher order components `connect` or `connectState` are used to subscribe for the `state` changes by using the `mapStateToProps` mapping/selector. `connect` or `connectState` accepts `mapStateToProps` as an argument.
 
@@ -93,7 +93,7 @@ The higher order component `connect` or `connectDispatch` is used along with the
 
 The higher order components `connect` or `connectDispatch` are used to supply the `actions` as props to the component by accepting the `mapDispatchToProps` mapping function as its argument.
 
-In the example below, component `ToggleButton` expects a function named `toggleTheme` to be supplied as a property, which will be called to toggle the dark theme mode. `mapDispatchToProps` receives `dispatch` and returns an object holding the function `toggleTheme` which acts as the `action`. The action `toggleTheme` calls the `dispatch` function with a function as an argument which is called as `reducer`. The `reducer` receives the current `state` and returns the updated `state`. This returned updated `state` is merged in the application `state` by the `store`. The changed `state` is supplied to the subscriber components, like the `DarkThemeLabel` defined in the example above, in the **Consuming the State** section.
+In the example below, component `ToggleButton` expects a function named `toggleTheme` to be supplied as a property, which will be called to toggle the dark theme mode. `mapDispatchToProps` receives `dispatch` and returns an object holding the function `toggleTheme` which acts as the `action`. The action `toggleTheme` calls the `dispatch` function with a function as an argument which is called as `reducer`. The `reducer` receives the current `state` and returns the updated `state`. This returned updated `state` is merged in the application `state` by the `store`. The changed `state` is supplied to the subscriber components, like the `DarkThemeLabel` defined in the example above, in the [**Consuming the State**](https://github.com/vivekmunde/duxact#consuming-the-state) section.
 
 ```
 import { connect } from 'duxact';
@@ -133,7 +133,7 @@ const ThemeToggler = connect(null, mapDispatchToProps)(ToggleButton);
 ##### Arguments
 1. `mapStateToProps`: (optional) A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
 2. `mapDispatchToProps`: (optional) A function which receives the `dispatch` function to dispatch the actions. This function should return an object of actions, actions responsible for updating the application state. These actions are nothing but functions which are passed as props to the component.
-3. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section **Using custom equality function** for more details)
+3. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section [**Using custom equality function**](https://github.com/vivekmunde/duxact#using-custom-equality-function) for more details)
 
 ```
 import { connect } from 'duxact';
@@ -177,7 +177,7 @@ const ThemeToggler = connect(mapStateToProps, mapDispatchToProps)(ToggleButton);
 
 ##### Arguments
 1. `mapStateToProps`: A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
-2. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section **Using custom equality function** for more details)
+2. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section [**Using custom equality function**](https://github.com/vivekmunde/duxact#using-custom-equality-function) for more details)
 
 ```
 import { connectState } from 'duxact';
@@ -206,7 +206,7 @@ const ThemeToggler = connectDispatch(mapDispatchToProps)(ToggleButton);
 
 ##### Arguments
 1. `selector`: A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
-2. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section **Using custom equality function** for more details)
+2. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section [**Using custom equality function**](https://github.com/vivekmunde/duxact#using-custom-equality-function) for more details)
 
 ```
 import { useSelector } from 'duxact';
