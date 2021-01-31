@@ -98,4 +98,38 @@ describe('connect()', () => {
     expect(dispatcher1).toHaveBeenCalledWith(store.getState());
     expect(dispatcher2).toHaveBeenCalledWith(store.getState());
   });
+
+  test('Should use passed function for state change comparison', () => {
+    expect.hasAssertions();
+
+    const store = createStore({ value: 'no' });
+
+    const renderConsumer = jest.fn();
+
+    const StateConsumer = connect(
+      ({ value }) => ({ value }),
+      null,
+      (prevState, newState) => (prevState.value === newState.value),
+    )(({ value }) => {
+      renderConsumer();
+      return <div>{value}</div>;
+    });
+
+    const wrapper = mount(
+      <Provider store={store}>
+        <StateConsumer />
+      </Provider>
+    );
+
+    expect(wrapper.text()).toEqual('no');
+    expect(renderConsumer).toHaveBeenCalledTimes(1);
+
+    store.dispatch(() => ({ value: 'no' }));
+    expect(wrapper.text()).toEqual('no');
+    expect(renderConsumer).toHaveBeenCalledTimes(1);
+
+    store.dispatch(() => ({ value: 'yes' }));
+    expect(wrapper.text()).toEqual('yes');
+    expect(renderConsumer).toHaveBeenCalledTimes(2);
+  });
 });
