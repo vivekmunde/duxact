@@ -133,7 +133,7 @@ const ThemeToggler = connect(null, mapDispatchToProps)(ToggleButton);
 ##### Arguments
 1. `mapStateToProps`: (optional) A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
 2. `mapDispatchToProps`: (optional) A function which receives the `dispatch` function to dispatch the actions. This function should return an object of actions, actions responsible for updating the application state. These actions are nothing but functions which are passed as props to the component.
-
+3. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section **Using custom equality function** for more details)
 
 ```
 import { connect } from 'duxact';
@@ -175,6 +175,10 @@ const ThemeToggler = connect(mapStateToProps, mapDispatchToProps)(ToggleButton);
 
 `connectState` can be used instead of `connect` when a component only needs to consume the state and does not need to dispatch any actions.
 
+##### Arguments
+1. `mapStateToProps`: A mapping function or a selector function, which receives the application state and should return the state (filtered out of the application state) required by the component. The state returned by the mapping function or selector is passed as props to the component.
+2. `areEqual`: (optional) An equality function to compare the old vs new state. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering. `duxact`, by default, deep compares the old & new states. (refer section **Using custom equality function** for more details)
+
 ```
 import { connectState } from 'duxact';
 ...
@@ -185,6 +189,9 @@ const DarkThemeView = connectState(mapStateToProps)(DarkThemeLabel);
 
 `connectDispatch` can be used instead of `connect` when a component only needs to dispatch actions and does not need to consume the state.
 
+##### Arguments
+1. `mapDispatchToProps`: A function which receives the `dispatch` function to dispatch the actions. This function should return an object of actions, actions responsible for updating the application state. These actions are nothing but functions which are passed as props to the component.
+
 ```
 import { connectDispatch } from 'duxact';
 ...
@@ -193,7 +200,7 @@ const ThemeToggler = connectDispatch(mapDispatchToProps)(ToggleButton);
 
 ## Deep comparison
 
-`duxact` deep compares the changed state and old state, state derived from the `mapStateToProps` selector. It updates the consumer only if new state (derived from the mapStateToProps) has changed with respect to the old state. This avoids unnecessary re-renders of the consumer components.
+`duxact` deep compares the changed state and old state. It updates the consumer only if new state (derived from the mapStateToProps) has changed with respect to the old state. This avoids unnecessary re-renders of the consumer components.
 
 In below example, component `UserDetails` will receive fresh props, `name` & `address`, only if `name` and/or `address` of the `loggedInUser` object gets updated in store. Because the mapStateToProps (selector) returns only the `name` & `address` fields of `loggedInUser`. So even if other data like `dateOfBirth`, `age` etc of the `loggedInUser` are changed, the consumer component `UserDetails` do not receive freshly mapped `name` & `address`, to avoid re-rendering of `UserDetails`.
 > Please note, if any parent component in the hierarchy of the `UserDetails` has re-rendered then `UserDetails` will also re-render. Its a default behavior of react components. To avoid this use [PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent) or [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate).
@@ -214,6 +221,54 @@ const UserDetails = ({ name, address }) => (
   
 // connect the state to component
 const UserDetailsView = connect(mapStateToProps)(UserDetails);
+```
+
+### Using custom equality function
+
+`connect`, `connectState` & `useSelector` accepts a comparision function. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering.
+
+```
+import { connect, connectState } from 'duxact';
+
+const areEqual = (oldState, newState) => {
+  return oldState.loggedInUser.updatedTimeStamp !== newState.loggedInUser.updatedTimeStamp;
+};
+
+const mapStateToProps = (currentState) => ({
+  name: currentState.loggedInUser.name
+});
+
+const UserNameLabel = ({ name }) => (
+  <label>{name}</label>
+);
+
+const UserAddressLabel = ({ address }) => (
+  <label>{address}</label>
+);
+
+const UserName = connect(mapStateToProps, null, areEqual)(UserNameLabel);
+
+const UserAddress = connectState(mapStateToProps, areEqual)(UserAddressLabel);
+
+```
+
+```
+import { useSelector } from 'duxact';
+
+const areEqual = (oldState, newState) => {
+  return oldState.loggedInUser.updatedTimeStamp !== newState.loggedInUser.updatedTimeStamp;
+};
+
+const stateSelector = (currentState) => ({
+  address: currentState.loggedInUser.address
+});
+
+const UserAddress = () => {
+  const { address } = useSelector(stateSelector, areEqual);
+  return (
+    <label>{address}</label>
+  );
+};
 ```
 
 ## Helpers
