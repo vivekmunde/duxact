@@ -294,7 +294,7 @@ const UserDetailsView = connect(mapStateToProps)(UserDetails);
 import { connect, connectState } from 'duxact';
 
 const areEqual = (oldState, newState) => {
-  return oldState.loggedInUser.updatedTimeStamp !== newState.loggedInUser.updatedTimeStamp;
+  return oldState.loggedInUser.updatedTimeStamp === newState.loggedInUser.updatedTimeStamp;
 };
 
 const mapStateToProps = (currentState) => ({
@@ -319,7 +319,7 @@ const UserAddress = connectState(mapStateToProps, areEqual)(UserAddressLabel);
 import { useSelector } from 'duxact';
 
 const areEqual = (oldState, newState) => {
-  return oldState.loggedInUser.updatedTimeStamp !== newState.loggedInUser.updatedTimeStamp;
+  return oldState.loggedInUser.updatedTimeStamp === newState.loggedInUser.updatedTimeStamp;
 };
 
 const stateSelector = (currentState) => ({
