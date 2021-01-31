@@ -56,7 +56,7 @@ const APP = () => (
 
 The components can access the `state` by connecting to the `store`. This connection is done by subscribing to the `state`. To subscribe to the state and its changes, a combination of higher order component `connect` & state-to-props mapping (also called as selector) is used. Let's name this mapping function as `mapStateToProps`. The function `mapStateToProps` receives the complete application `state` object and should return **only the required state** (which the consuming/subscribing component is expected to receive) from the complete application state object. So the function `mapStateToProps` is nothing but a selector of state which selects only the needed data from state and passes it as props to the component. `mapStateToProps` is called every time there is a change in the application `state`. The function `mapStateToProps` receives the latest state. 
 
-`duxact` uses [**deep comparision**](https://github.com/vivekmunde/duxact#deep-comparison) to detect changes in the selected state and it triggers rerendering only if the selected state has changed. This mechanism is explained in detail in the later part of documentation titled as `Deep comparision`.
+`duxact` uses [**deep comparison**](https://github.com/vivekmunde/duxact#deep-comparison) to detect changes in the selected state and it triggers rerendering only if the selected state has changed.
 
 The higher order components `connect` or `connectState` are used to subscribe for the `state` changes by using the `mapStateToProps` mapping/selector. `connect` or `connectState` accepts `mapStateToProps` as an argument.
 
@@ -353,7 +353,7 @@ const UserAuthorizationList = connect(mapStateToPropsForAuthorizationListCompone
 
 ### Using custom equality function
 
-`connect`, `connectState` & `useSelector` accepts a comparision function. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering.
+`connect`, `connectState` & `useSelector` accepts a comparison function. This function receives oldState and newState. The function is expected to return boolean result, `false` indiates that the state has been changed. So returning `false` will trigger the rerendering.
 
 ```
 import { connect, connectState } from 'duxact';
