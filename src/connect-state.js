@@ -37,11 +37,11 @@ const connect = (mapStateToProps, areEqual = deepEqual) => Component => {
       this.unsubscribe();
     }
 
-    listener = (updatedState) => {
-      const prevState = this.state;
-      const newState = mapStateToProps(updatedState);
-      if (!areEqual(prevState, newState)) {
-        this.setState(newState);
+    listener = (newState) => {
+      const prevMappedState = this.state;
+      const newMappedState = mapStateToProps(newState);
+      if (!areEqual(prevMappedState, newMappedState)) {
+        this.setState(newMappedState);
       }
     }
 
