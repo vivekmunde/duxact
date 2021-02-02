@@ -174,5 +174,9 @@ describe('connectState()', () => {
     store.dispatch(() => ({ value: 'yes' }));
     expect(wrapper.text()).toEqual('yes');
     expect(renderConsumer).toHaveBeenCalledTimes(2);
+
+    store.dispatch(() => ({ value: 'may be' }));
+    expect(wrapper.text()).toEqual('may be');
+    expect(renderConsumer).toHaveBeenCalledTimes(3);
   });
 });

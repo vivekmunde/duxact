@@ -17,7 +17,7 @@ describe('useSelector()', () => {
     }).toThrow(new Error('Store is not available in context. Use Provider to define the store in context.'));
   });
 
-  test('Should throw error if mapStateToProps is not a function', () => {
+  test('Should throw error if selector is not a function', () => {
     expect.hasAssertions();
 
     expect(() => {
@@ -27,7 +27,7 @@ describe('useSelector()', () => {
         return (<div>{state.value}</div>);
       };
       mount(<Provider store={store}><Component /></Provider>);
-    }).toThrow(new Error('State mapping must be a function.'));
+    }).toThrow(new Error('Selector must be a function.'));
 
     expect(() => {
       const store = createStore({});
@@ -36,7 +36,7 @@ describe('useSelector()', () => {
         return (<div>{state.value}</div>);
       };
       mount(<Provider store={store}><Component /></Provider>);
-    }).toThrow(new Error('State mapping must be a function.'));
+    }).toThrow(new Error('Selector must be a function.'));
   });
 
   test('Should supply initial state to component', () => {
@@ -185,5 +185,9 @@ describe('useSelector()', () => {
     store.dispatch(() => ({ value: 'yes' }));
     expect(wrapper.text()).toEqual('yes');
     expect(renderConsumer).toHaveBeenCalledTimes(2);
+
+    store.dispatch(() => ({ value: 'may be' }));
+    expect(wrapper.text()).toEqual('may be');
+    expect(renderConsumer).toHaveBeenCalledTimes(3);
   });
 });
