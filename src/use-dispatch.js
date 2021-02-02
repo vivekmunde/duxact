@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import isUndefinedOrNull from './is-undefined-or-null';
 import StoreContext from './store-context';
 
-const useDispatch = (mapStateToProps) => {
+const useDispatch = () => {
   const { duxactStore } = useContext(StoreContext);
 
   if (isUndefinedOrNull(duxactStore)) {
