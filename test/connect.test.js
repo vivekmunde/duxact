@@ -1,8 +1,6 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import createStore from '../src/create-store';
-import Provider from '../src/provider';
-import connect from '../src/connect';
+import React from 'react';
+import { connect, createStore, Provider } from '../lib/cjs';
 
 describe('connect()', () => {
   test('Should connect mapStateToProps', () => {

@@ -1,4 +1,4 @@
-import arrayToMapStateToProps from '../src/array-to-map-state-to-props';
+import { arrayToMapStateToProps } from '../lib/cjs';
 
 describe('arrayToMapStateToProps()', () => {
   test('Should throw error if argument is not an array of string', () => {

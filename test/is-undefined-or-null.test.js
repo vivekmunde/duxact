@@ -1,4 +1,4 @@
-import isUndefinedOrNull from '../src/is-undefined-or-null';
+import isUndefinedOrNull from '../lib/cjs/is-undefined-or-null';
 
 describe('isUndefinedOrNull()', () => {
   test('Should return true for undefined', () => {

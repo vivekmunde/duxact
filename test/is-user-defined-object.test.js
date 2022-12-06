@@ -1,4 +1,4 @@
-import isObject from '../src/is-user-defined-object';
+import isObject from '../lib/cjs/is-user-defined-object';
 
 describe('isUserDefinedObject()', () => {
   test('Should return true for user defined object', () => {

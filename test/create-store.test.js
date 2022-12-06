@@ -1,4 +1,4 @@
-import createStore from '../src/create-store';
+import { createStore } from '../lib/cjs';
 
 describe('createStore()', () => {
   describe('getState()', () => {

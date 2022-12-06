@@ -1,4 +1,4 @@
-import isFunction from '../src/is-function';
+import isFunction from '../lib/cjs/is-function';
 
 describe('isFunction()', () => {
   test('Should return true for function', () => {

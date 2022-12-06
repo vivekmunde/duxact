@@ -1,4 +1,4 @@
-import isNull from '../src/is-null';
+import isNull from '../lib/cjs/is-null';
 
 describe('isNull()', () => {
   test('Should return true for null', () => {

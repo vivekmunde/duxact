@@ -1,7 +1,6 @@
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import Provider from '../src/provider';
-import StoreContext from '../src/store-context';
+import { Provider, StoreContext } from '../lib/cjs';
 
 describe('<Provider />', () => {
   test('Should throw exception if the store is not defined', () => {
@@ -21,10 +20,15 @@ describe('<Provider />', () => {
     class ChildComponent extends React.Component {
       static contextType = StoreContext;
 
+      constructor(props, context) {
+        super(props);
+        const { duxactStore } = context;
+        this.duxactStore = duxactStore;
+      }
+
       render() {
-        const { duxactStore } = this.context;
         return (
-          <React.Fragment>{duxactStore.getState().some}</React.Fragment>
+          <React.Fragment>{this.duxactStore.getState().some}</React.Fragment>
         );
       }
     }

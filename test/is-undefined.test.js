@@ -1,4 +1,4 @@
-import isUndefined from '../src/is-undefined';
+import isUndefined from '../lib/cjs/is-undefined';
 
 describe('isUndefined()', () => {
   test('Should return true for undefined', () => {

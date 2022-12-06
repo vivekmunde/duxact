@@ -1,0 +1,1 @@
+{"version":3,"file":"use-dispatch.js","sourceRoot":"","sources":["../../src/use-dispatch.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AACnC,OAAO,YAAY,MAAM,iBAAiB,CAAC;AAG3C,IAAM,WAAW,GAAG;IACV,IAAA,WAAW,GAAK,UAAU,CAAwB,YAAY,CAAC,YAApD,CAAqD;IAExE,OAAO,WAAW,CAAC,QAAQ,CAAC;AAC9B,CAAC,CAAC;AAEF,eAAe,WAAW,CAAC"}

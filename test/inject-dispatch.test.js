@@ -1,4 +1,4 @@
-import injectDispatch from '../src/inject-dispatch';
+import { injectDispatch } from '../lib/cjs';
 
 describe('injectDispatch()', () => {
   test('Should throw error if dispatchMapping is not defined', () => {

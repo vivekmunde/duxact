@@ -1,11 +1,9 @@
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import createStore from '../src/create-store';
-import Provider from '../src/provider';
-import useDispatch from '../src/use-dispatch';
+import { createStore, Provider, useDispatch } from '../lib/cjs';
 
 describe('useDispatch()', () => {
-  test('Should throw error if store is not defined in context', () => {
+  test('Should throw error if store is not defined in the context', () => {
     expect.hasAssertions();
 
     expect(() => {
